@@ -1,6 +1,7 @@
 package com.familiacerne.dslist.dto;
 
 import com.familiacerne.dslist.entities.Game;
+import com.familiacerne.dslist.projections.GameMinProjection;
 
 public class GameMInDTO {
 		
@@ -25,6 +26,16 @@ public class GameMInDTO {
 			
 		}
 
+		public GameMInDTO(GameMinProjection projection) {
+			id = projection.getId();
+			title = projection.getTitle();
+			year = projection.getYear();
+			imgUrl = projection.getImgUrl();
+			shortDescription = projection.getShortDescription();
+			
+		}
+
+		
 		public Long getId() {
 			return id;
 		}

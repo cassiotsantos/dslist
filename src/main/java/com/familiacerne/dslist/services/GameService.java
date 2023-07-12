@@ -1,13 +1,16 @@
 package com.familiacerne.dslist.services;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.familiacerne.dslist.dto.GameDTO;
 import com.familiacerne.dslist.dto.GameMInDTO;
 import com.familiacerne.dslist.entities.Game;
+import com.familiacerne.dslist.projections.GameMinProjection;
 import com.familiacerne.dslist.repositories.GameRepository;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class GameService {
@@ -30,5 +33,13 @@ public class GameService {
 		return dto;		
 	}
 	
+	
+	@Transactional(readOnly = true)
+	public List<GameMInDTO> findByList(Long listId){
+		List<GameMinProjection> result = gameRepository.searchByList(listId);
+		return result.stream().map(x -> new GameMInDTO(x)).toList();
+	}
+	
 
+	
 }
